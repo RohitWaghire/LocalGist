@@ -1,0 +1,55 @@
+{
+  "name": "localgist",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A local desktop research assistant for transcript insights.",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "node batch-transcripts.js",
+    "insights": "node insight-server.js",
+    "test": "node --test",
+    "desktop": "electron .",
+    "package:dir": "electron-builder --win dir",
+    "package:win": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "playwright": "^1.54.2"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.8.1"
+  },
+  "author": "LocalGist",
+  "build": {
+    "appId": "com.localgist.desktop",
+    "productName": "LocalGist",
+    "icon": "assets/localgist.ico",
+    "asar": true,
+    "files": [
+      "electron-main.js",
+      "electron-preload.js",
+      "insight-server.js",
+      "insight-engine.js",
+      "insights-public/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

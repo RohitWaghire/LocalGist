@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LocalGist</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><span class="mark">LG</span><div><strong>LocalGist</strong><small>Private transcript research</small></div></div>
+      <div id="engineStatus" class="status">Checking local model...</div>
+    </header>
+    <main class="workspace">
+      <aside class="library" aria-label="Transcript library">
+        <div class="library-heading"><div><p class="eyebrow">Source library</p><h1>Transcripts</h1></div><div class="library-actions"><button id="openFolderButton" class="quiet-button" type="button">Folder</button><label class="icon-button" title="Add transcript files"><input id="fileInput" type="file" accept=".txt,.md,text/plain,text/markdown" multiple><span>+</span></label></div></div>
+        <div id="libraryMeta" class="library-meta">No local sources</div>
+        <div id="sourceList" class="source-list"></div>
+      </aside>
+      <section class="analysis-area">
+        <div class="query-panel">
+          <div class="query-copy"><p class="eyebrow">Research prompt</p><h2>What do you want to understand?</h2></div>
+          <div class="controls"><select id="modeSelect" aria-label="Analysis mode"><option value="decision brief">Decision brief</option><option value="themes and patterns">Themes &amp; patterns</option><option value="risks and objections">Risks &amp; objections</option><option value="customer language">Customer language</option></select><select id="modelSelect" aria-label="Local AI model"><option value="">Automatic local model</option></select></div>
+          <textarea id="questionInput" rows="3" placeholder="e.g. What keeps teams from adopting the new workflow?"></textarea>
+          <div class="query-footer"><span id="selectionCount">No sources selected</span><button id="analyzeButton" type="button">Find insights</button></div>
+        </div>
+        <div id="emptyState" class="empty-state"><div class="empty-icon">+</div><h2>Start with source material.</h2><p>Select one or more transcripts, then frame a question for analysis.</p></div>
+        <section id="results" class="results" hidden>
+          <div class="result-heading"><div><p class="eyebrow">Analysis</p><h2 id="overview"></h2></div><span id="engineBadge" class="engine-badge"></span></div>
+          <div class="result-grid"><section class="findings-panel"><h3>Key findings</h3><div id="findings"></div></section><aside class="side-results"><section><h3>Recurring themes</h3><div id="themes" class="theme-list"></div></section><section><h3>Useful next questions</h3><div id="followUps" class="follow-ups"></div></section></aside></div>
+        </section>
+      </section>
+    </main>
+    <template id="findingTemplate"><article class="finding"><h4></h4><p></p><div class="evidence"></div></article></template>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script src="app.js"></script>
+  </body>
+</html>

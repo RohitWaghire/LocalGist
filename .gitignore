@@ -1,0 +1,9 @@
+node_modules/
+release/win-unpacked/
+transcripts/*
+!transcripts/.gitkeep
+links.txt
+progress.json
+failures.csv
+*.log
+.DS_Store
