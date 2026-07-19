@@ -26,6 +26,18 @@ Everything runs on your machine. When a local [Ollama](https://ollama.com) model
   <em>Ask a question across selected transcripts and get findings with cited evidence. Light and dark themes follow your system.</em>
 </div>
 
+## Built with OpenAI Codex + GPT‑5.6
+
+The core of LocalGist was built with **OpenAI Codex (GPT‑5.6)**. Codex designed and implemented:
+
+- **The secure Electron shell** (`electron-main.js`, `electron-preload.js`) — context isolation, sandboxing, no Node integration in the renderer, a minimal `contextBridge` API, native file dialogs, the application menu, and IPC.
+- **The local HTTP server and JSON API** (`insight-server.js`) — static serving plus `/api/status`, `/api/transcript`, and `/api/analyze`, with request-size and document-count limits and the local [Ollama](https://ollama.com) integration (`/api/generate`, JSON mode).
+- **The analysis engine** (`insight-engine.js`) — the grounded extractive fallback (keyword extraction and question-overlap sentence ranking) plus the strict model-response parser that degrades gracefully.
+- **The Playwright transcript fetcher** (`batch-transcripts.js`) and the **Node test suite** (engine, server, renderer, and desktop-contract tests).
+- **The electron-builder NSIS packaging** for the Windows installer.
+
+The interface was later refreshed as a final polish pass.
+
 ## Features
 
 - **Local-first and private** — transcript content never leaves your computer. There is no account, no telemetry, and no hosted model API.
