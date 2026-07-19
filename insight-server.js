@@ -111,7 +111,7 @@ function serveStatic(request, response, publicDir = PUBLIC_DIR) {
   const filePath = path.join(publicDir, path.basename(requested));
   if (!filePath.startsWith(publicDir) || !fs.existsSync(filePath)) { response.writeHead(404); response.end("Not found"); return; }
   const extension = path.extname(filePath);
-  const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8" };
+  const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".png": "image/png" };
   response.writeHead(200, { "content-type": types[extension] || "application/octet-stream" });
   fs.createReadStream(filePath).pipe(response);
 }

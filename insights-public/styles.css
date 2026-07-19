@@ -131,11 +131,9 @@ h3 {
 .brand { display: flex; align-items: center; gap: 12px; }
 .mark {
   width: 34px; height: 34px;
-  display: grid; place-items: center;
+  display: block;
   border-radius: var(--r-control);
-  background: linear-gradient(150deg, var(--accent), var(--accent-hover));
-  color: #fff;
-  font: 700 12px/1 var(--sans); letter-spacing: .02em;
+  object-fit: cover;
   box-shadow: var(--shadow-sm);
 }
 .brand-text strong { display: block; font-size: 15px; font-weight: 650; letter-spacing: -.01em; }
