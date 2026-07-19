@@ -1,7 +1,5 @@
 node_modules/
-release/win-unpacked/
-release/builder-debug.yml
-release/latest.yml
+release/
 transcripts/*
 !transcripts/.gitkeep
 links.txt
