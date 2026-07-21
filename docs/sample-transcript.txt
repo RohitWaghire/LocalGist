@@ -1,0 +1,61 @@
+Onboarding research call - Meridian Logistics
+Date: 12 March
+Participants: Facilitator (research), Priya (Operations Lead), Daniel (IT), Sam (Team Manager)
+
+Facilitator: Thanks for making time. I want to understand what actually happened during your first month on the new workflow. Start wherever you like.
+
+Priya: Honestly, most of the first month was waiting. We were ready on day one. The team was trained, the data was exported, the kickoff was booked. Nobody could log in for eight days.
+
+Facilitator: What caused the delay?
+
+Daniel: Three separate approvals. Security had to sign off on data handling, IT had to approve the install, and a budget owner had to release the licences. They came back on different days, and each one effectively restarted the clock.
+
+Priya: And none of them were hard approvals. Nobody said no. They just each took two or three days, in sequence rather than in parallel.
+
+Sam: From my side it looked like the project had stalled. I had a team sitting on their hands, and I could not tell anyone when we would start, because I did not know who to ask.
+
+Facilitator: Who did you think owned the rollout?
+
+Sam: That is the thing. Everyone assumed someone else owned it. Ops thought IT owned it, IT thought it was an ops project, and the vendor thought our project manager owned it. There was no single person you could go to when it got stuck.
+
+Daniel: I would push back slightly. I knew who owned the install. What nobody owned was the sequence, the end to end. The handoffs between teams were where it died.
+
+Priya: Agreed. It was never one team failing. It was the gaps between them.
+
+Facilitator: Once you were in, how did it go?
+
+Sam: Much better. The setup guide was genuinely good. The screenshots matched what we actually saw, which sounds small but it is rare. My team got through configuration in an afternoon.
+
+Priya: The guide fixed the part that was already the easiest. Getting in was the hard part, and no guide helps with that.
+
+Facilitator: Were there problems after setup?
+
+Daniel: Permissions. The model is powerful but not obvious. We had managers who could see everything and coordinators who could see almost nothing, and it took us a while to work out that the defaults were doing that. First-time admins will get this wrong.
+
+Sam: We also lost about a week to reporting. People kept asking for a single place to see status, and we did not have one until we built a view for it. Until then everyone was checking three different screens.
+
+Facilitator: Did cost come up?
+
+Priya: Pricing came up twice with finance, but it never blocked anything. It was not the issue. The issue was time to value. We paid for a month we could not use.
+
+Facilitator: What would you change if you were starting again?
+
+Priya: Pre-clear the approvals. If the three sign-offs could happen in parallel, or be handled once at the account level instead of per team, we would have started in two days instead of ten.
+
+Sam: Name an owner. One person, on our side, accountable for the whole path from contract to first real workflow. Leadership is asking for that before the next launch.
+
+Daniel: And ship a permissions template. Give us three sensible presets instead of asking us to design a permission model on day one.
+
+Facilitator: How does the team feel about it now?
+
+Sam: Positive, genuinely. Once the first workflow shipped, adoption took care of itself. People stopped asking whether we were using it and started asking for more of it.
+
+Priya: The trial period felt empty until real data was in there. That is worth saying. Nothing clicked while it was sample records. The moment we imported our own shipments, people understood it.
+
+Daniel: Retention on the tool is fine now. My concern is the next team we roll out to. If they hit the same eight days of approvals, we will have the same conversation again in six months.
+
+Facilitator: Anything else you want the product team to hear?
+
+Priya: Onboarding is the whole game. The product is good. Almost everything that went wrong for us happened before anyone used the product.
+
+Sam: Just make the first week possible. That is it.

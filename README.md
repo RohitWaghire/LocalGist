@@ -58,6 +58,10 @@ The interface was later refreshed as a final polish pass.
 
 > **SmartScreen note:** the installer is not signed with a commercial certificate, so Windows SmartScreen may show a warning. Choose **More info → Run anyway** to continue.
 
+### Try it with sample data
+
+No transcripts handy? Use the included sample: [`docs/sample-transcript.txt`](docs/sample-transcript.txt) — a short onboarding research call. Add it with the **+** button, select it, and ask something like *"Why do new teams stall during onboarding?"* You should get an overview, findings that each cite an exact quote, recurring themes, and follow-up questions.
+
 ### Optional: enable AI synthesis with Ollama
 
 LocalGist works without any model, but a local model produces richer, synthesized findings.
