@@ -369,6 +369,12 @@ button:focus-visible { box-shadow: 0 0 0 3px var(--accent-ring); }
 .finding > p { color: var(--ink-soft); }
 
 .evidence { display: grid; gap: 8px; margin-top: 14px; }
+.decision-summary { display:grid; grid-template-columns:minmax(0,1fr) 240px auto; gap:18px; margin:20px 0 28px; padding:16px 18px; border:1px solid var(--line); background:#f4f8f6; }
+.decision-summary p { margin:6px 0 0; color:#294d48; }
+.export-button { align-self:center; white-space:nowrap; }
+.brief-list { display:grid; gap:8px; margin-top:10px; color:var(--ink-soft); font-size:13px; }
+.brief-list p { margin:0; }
+.quote.unverified { border-left-color:#d9a441; background:#fff8e8; }
 .quote {
   padding: 11px 14px;
   border-left: 3px solid var(--accent);

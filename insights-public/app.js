@@ -7,6 +7,7 @@ const results = document.querySelector("#results");
 const emptyState = document.querySelector("#emptyState");
 const libraryMeta = document.querySelector("#libraryMeta");
 const toast = document.querySelector("#toast");
+let lastPayload = null;
 
 function showToast(message) {
   toast.textContent = message;
@@ -54,13 +55,26 @@ async function selectedDocuments() {
   return documents;
 }
 function renderResults(payload) {
-  const analysis = payload.analysis; document.querySelector("#overview").textContent = analysis.overview; document.querySelector("#engineBadge").textContent = payload.engine;
+  lastPayload = payload;
+  const analysis = payload.analysis; document.querySelector("#overview").textContent = analysis.overview; document.querySelector("#engineBadge").textContent = payload.engine; document.querySelector("#recommendation").textContent = analysis.recommendation || analysis.overview; const summary = analysis.evidenceSummary || { verified: 0, unverified: 0 }; document.querySelector("#evidenceSummary").textContent = `${summary.verified} verified · ${summary.unverified} needing review`;
   const findings = document.querySelector("#findings"); findings.replaceChildren();
-  for (const item of analysis.findings) { const node = document.querySelector("#findingTemplate").content.cloneNode(true); node.querySelector("h4").textContent = item.title; node.querySelector("p").textContent = item.detail; const evidence = node.querySelector(".evidence"); for (const quote of item.evidence || []) { const block = document.createElement("div"); block.className = "quote"; block.textContent = `"${quote.quote}"`; const source = document.createElement("span"); source.textContent = quote.source; block.append(source); evidence.append(block); } findings.append(node); }
+  for (const item of analysis.findings) { const node = document.querySelector("#findingTemplate").content.cloneNode(true); node.querySelector("h4").textContent = item.title; node.querySelector("p").textContent = item.detail; const evidence = node.querySelector(".evidence"); for (const quote of item.evidence || []) { const block = document.createElement("div"); block.className = `quote ${quote.verified ? "verified" : "unverified"}`; block.textContent = `"${quote.quote}"`; const source = document.createElement("span"); source.textContent = `${quote.source} · ${quote.verified ? "Verified source quote" : "Needs verification"}`; block.append(source); evidence.append(block); } findings.append(node); }
   const themes = document.querySelector("#themes"); themes.replaceChildren(); for (const theme of analysis.themes) { const tag = document.createElement("span"); tag.className = "theme"; tag.textContent = theme.label; const count = document.createElement("b"); count.textContent = ` ${theme.count}`; tag.append(count); themes.append(tag); }
+  const risks = document.querySelector("#risks"); risks.replaceChildren(); for (const item of analysis.risks || []) { const node = document.createElement("p"); node.textContent = `Risk: ${item}`; risks.append(node); }
+  const actionItems = document.querySelector("#actionItems"); actionItems.replaceChildren(); for (const item of analysis.actionItems || []) { const node = document.createElement("p"); node.textContent = `${item.action}${item.owner ? ` · ${item.owner}` : ""}`; actionItems.append(node); }
   const followUps = document.querySelector("#followUps"); followUps.replaceChildren(); for (const item of analysis.followUps) { const question = document.createElement("button"); question.className = "follow-up"; question.type = "button"; question.textContent = item; question.addEventListener("click", () => { questionInput.value = item; questionInput.focus(); }); followUps.append(question); }
+  document.querySelector("#exportButton").hidden = false;
   emptyState.hidden = true; results.hidden = false;
 }
+function exportBrief() {
+  if (!lastPayload) return;
+  const { analysis } = lastPayload;
+  const lines = [`# LocalGist decision brief`, ``, `## Overview`, analysis.overview, ``, `## Recommendation`, analysis.recommendation || "Not provided", ``, `## Evidence`];
+  for (const finding of analysis.findings || []) { lines.push(`### ${finding.title}`, finding.detail); for (const item of finding.evidence || []) lines.push(`- ${item.verified ? "[verified]" : "[needs review]"} ${item.quote} (${item.source})`); }
+  lines.push(``, `## Risks`, ...(analysis.risks || []).map((item) => `- ${item}`), ``, `## Action items`, ...(analysis.actionItems || []).map((item) => `- ${item.action}${item.owner ? ` (${item.owner})` : ""}`));
+  const blob = new Blob([lines.join("\n")], { type: "text/markdown" }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "localgist-decision-brief.md"; link.click(); URL.revokeObjectURL(link.href);
+}
+document.querySelector("#exportButton").addEventListener("click", exportBrief);
 document.querySelector("#fileInput").addEventListener("change", async (event) => { const documents = []; for (const file of event.target.files) documents.push({ id: `${file.name}-${file.lastModified}`, title: file.name.replace(/\.[^.]+$/, ""), content: await file.text(), bytes: file.size }); addDocuments(documents); event.target.value = ""; });
 const openFolderButton = document.querySelector("#openFolderButton");
 openFolderButton.addEventListener("click", async () => { if (window.desktop) await window.desktop.openTranscriptFolder(); });

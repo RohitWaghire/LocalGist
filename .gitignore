@@ -7,3 +7,6 @@ progress.json
 failures.csv
 *.log
 .DS_Store
+
+# Archived duplicate project snapshot; keep the repository focused on the active app.
+mixed-from-Transcripts-2026-07-26/

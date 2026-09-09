@@ -62,6 +62,9 @@ function makeFallbackAnalysis(documents, question) {
       detail: item.text,
       evidence: [{ source: item.title, quote: item.text }]
     })),
+    recommendation: ranked.length ? ranked[0].text : "Collect more source material before making a recommendation.",
+    risks: ["The extractive fallback does not resolve disagreement between sources."],
+    actionItems: [],
     themes: keywords.map(({ term, count }) => ({ label: term, count })),
     followUps: question
       ? ["Which transcript provides the clearest supporting context?", "What is missing or contradicted across the selected transcripts?"]
@@ -82,6 +85,7 @@ function parseModelResponse(text, fallback) {
     }
     return {
       overview: cleanText(parsed.overview),
+      recommendation: cleanText(parsed.recommendation) || fallback.recommendation,
       findings: parsed.findings.slice(0, 6).map((finding, index) => ({
         title: cleanText(finding.title) || `Finding ${index + 1}`,
         detail: cleanText(finding.detail),
@@ -94,6 +98,10 @@ function parseModelResponse(text, fallback) {
         label: cleanText(item.label || item),
         count: Number(item.count) || 1
       })).filter((item) => item.label) : fallback.themes,
+      risks: Array.isArray(parsed.risks) ? parsed.risks.slice(0, 6).map(cleanText).filter(Boolean) : fallback.risks,
+      actionItems: Array.isArray(parsed.actionItems) ? parsed.actionItems.slice(0, 8).map((item) => ({
+        action: cleanText(item.action), owner: cleanText(item.owner), source: cleanText(item.source)
+      })).filter((item) => item.action) : fallback.actionItems,
       followUps: Array.isArray(parsed.followUps) ? parsed.followUps.slice(0, 4).map(cleanText).filter(Boolean) : fallback.followUps
     };
   } catch (error) {
@@ -101,4 +109,27 @@ function parseModelResponse(text, fallback) {
   }
 }
 
-module.exports = { cleanText, extractKeywords, makeFallbackAnalysis, parseModelResponse };
+function normalizeForMatch(value) {
+  return cleanText(value).toLowerCase().replace(/[“”"']/g, "").replace(/\s+/g, " ");
+}
+
+function verifyAnalysisEvidence(analysis, documents) {
+  const sourceText = new Map(documents.map((document) => [cleanText(document.title), normalizeForMatch(document.content)]));
+  let verified = 0;
+  let unverified = 0;
+  const findings = (analysis.findings || []).map((finding) => ({
+    ...finding,
+    evidence: (finding.evidence || []).map((item) => {
+      const source = cleanText(item.source);
+      const quote = cleanText(item.quote);
+      const content = sourceText.get(source);
+      const isVerified = Boolean(content && quote && content.includes(normalizeForMatch(quote)));
+      if (isVerified) verified += 1;
+      else unverified += 1;
+      return { source, quote, verified: isVerified };
+    })
+  }));
+  return { ...analysis, findings, evidenceSummary: { verified, unverified } };
+}
+
+module.exports = { cleanText, extractKeywords, makeFallbackAnalysis, parseModelResponse, verifyAnalysisEvidence };

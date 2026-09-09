@@ -16,9 +16,13 @@
 
 ## Overview
 
-LocalGist is a Windows desktop app that reads your `.txt` and `.md` transcripts and answers questions about them with structured, quote-backed findings. Select your sources, frame a question, pick an analysis mode, and get back a synthesized overview, key findings with the exact supporting quotes, recurring themes, and suggested follow-up questions.
+LocalGist is a Windows desktop app that turns private meeting and interview transcripts into evidence-backed decision briefs. Select your sources, frame a question, pick an analysis mode, and get a recommendation, key findings, risks, action items, recurring themes, and suggested follow-up questions.
 
-Everything runs on your machine. When a local [Ollama](https://ollama.com) model is available, LocalGist uses it to synthesize findings. When it is not, it falls back to a grounded extractive analysis, so the app is useful even fully offline.
+Everything runs on your machine. When a local [Ollama](https://ollama.com) model is available, LocalGist uses it to synthesize findings. Every cited quote is checked locally against the selected source and marked as verified or needing review. When Ollama is unavailable, the app falls back to grounded extractive analysis, so it remains useful fully offline.
+
+### Current hackathon direction
+
+LocalGist began as a private transcript-insight tool and is now being developed as an evidence-to-action workspace. The current product focus is helping a team answer a concrete question, inspect the source behind each claim, understand risks, and export an accountable decision brief. The hackathon work adds structured decision output, local citation verification, visible fallback behavior, and Markdown export on top of the original local-first foundation.
 
 <div align="center">
   <img src="docs/screenshot-dark.png" width="820" alt="LocalGist analyzing onboarding interviews (dark theme)">
@@ -41,7 +45,9 @@ The interface was later refreshed as a final polish pass.
 ## Features
 
 - **Local-first and private** — transcript content never leaves your computer. There is no account, no telemetry, and no hosted model API.
-- **Evidence-backed findings** — every finding cites short, exact quotes and names the source transcript, so answers stay grounded in your material.
+- **Evidence-backed findings** — every finding cites a source transcript, and each quote is locally checked before it is marked verified.
+- **Decision briefs** — receive a recommendation, risks, action items, and follow-up questions alongside the underlying evidence.
+- **Markdown export** — export the current analysis as a shareable decision brief without uploading the source material.
 - **Four analysis modes** — reframe the same sources as a *Decision brief*, *Themes & patterns*, *Risks & objections*, or *Customer language*.
 - **Bring your own model** — auto-detects local Ollama models and lets you pick one, or chooses automatically.
 - **Always-on fallback** — a keyword and sentence-ranking engine produces a grounded read when no model is running.
@@ -60,7 +66,7 @@ The interface was later refreshed as a final polish pass.
 
 ### Try it with sample data
 
-No transcripts handy? Use the included sample: [`docs/sample-transcript.txt`](docs/sample-transcript.txt) — a short onboarding research call. Add it with the **+** button, select it, and ask something like *"Why do new teams stall during onboarding?"* You should get an overview, findings that each cite an exact quote, recurring themes, and follow-up questions.
+No transcripts handy? Use the included sample: [`docs/sample-transcript.txt`](docs/sample-transcript.txt) — a short onboarding research call. Add it with the **+** button, select it, and ask something like *"Why do new teams stall during onboarding?"* You should get a recommendation, grounded findings, evidence verification status, risks, and follow-up questions. Use **Export brief** to save the result as Markdown.
 
 ### Optional: enable AI synthesis with Ollama
 
@@ -140,7 +146,7 @@ npm start -- --headless      # run without a visible browser window
 electron-main.js       Electron entry point, window, menu, IPC
 electron-preload.js    Secure contextBridge API for the renderer
 insight-server.js      Local HTTP server and JSON API
-insight-engine.js      Extractive fallback + model response parsing
+insight-engine.js      Analysis, response parsing, and citation verification
 insights-public/       The desktop UI (index.html, styles.css, app.js)
 batch-transcripts.js   Optional YouTube-transcript fetcher (Playwright)
 test/                  Node test suite (engine, server, renderer, contract)

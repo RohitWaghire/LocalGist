@@ -81,12 +81,22 @@
               </div>
               <span id="engineBadge" class="engine-badge"></span>
             </div>
+              <div class="decision-summary">
+              <div><span class="eyebrow">Recommendation</span><p id="recommendation">Evidence review in progress.</p></div>
+                <div><span class="eyebrow">Evidence check</span><p id="evidenceSummary">No evidence checked yet.</p></div>
+                <button id="exportButton" class="export-button" type="button" hidden>Export brief</button>
+              </div>
             <div class="result-grid">
               <section class="findings-panel">
                 <h3>Key findings</h3>
                 <div id="findings"></div>
               </section>
               <aside class="side-results">
+                <section>
+                  <h3>Risks &amp; actions</h3>
+                  <div id="risks" class="brief-list"></div>
+                  <div id="actionItems" class="brief-list"></div>
+                </section>
                 <section>
                   <h3>Recurring themes</h3>
                   <div id="themes" class="theme-list"></div>
