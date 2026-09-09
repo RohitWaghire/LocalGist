@@ -24,6 +24,8 @@ Everything runs on your machine. When a local [Ollama](https://ollama.com) model
 
 LocalGist began as a private transcript-insight tool and is now being developed as an evidence-to-action workspace. The current product focus is helping a team answer a concrete question, inspect the source behind each claim, understand risks, and export an accountable decision brief. The hackathon work adds structured decision output, local citation verification, visible fallback behavior, and Markdown export on top of the original local-first foundation.
 
+For the suggested judge walkthrough, see the [UPAI Hackdays demo guide](docs/UPAI-HACKATHON-DEMO.md).
+
 <div align="center">
   <img src="docs/screenshot-dark.png" width="820" alt="LocalGist analyzing onboarding interviews (dark theme)">
   <br>

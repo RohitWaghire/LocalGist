@@ -2,7 +2,7 @@
   "name": "localgist",
   "version": "1.0.0",
   "private": true,
-  "description": "A local desktop research assistant for transcript insights.",
+  "description": "A local-first AI workspace for evidence-backed decision briefs from private transcripts.",
   "main": "electron-main.js",
   "scripts": {
     "start": "node batch-transcripts.js",
